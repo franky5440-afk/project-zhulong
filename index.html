@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>燭龍計畫・宇宙邊界遠征</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/game_a.css">
+<link rel="stylesheet" href="css/game_b.css">
+</head>
+<body>
+<script>
+window.addEventListener('error', function (e) {
+  var t = document.getElementById('toast');
+  if (t) { t.textContent = '系統錯誤：' + e.message; t.className = 'show'; setTimeout(function () { t.className = ''; }, 5000); }
+});
+</script>
+<canvas id="stars"></canvas>
+
+<section id="scr-title" class="screen">
+  <div class="title-bg"></div>
+  <div class="title-wrap">
+    <h1 class="title-logo">燭龍計畫</h1>
+    <p class="subtitle">PROJECT ZHULONG ─ 宇宙邊界遠征</p>
+    <nav class="title-menu">
+      <button id="btn-new" class="menu-btn">▸ 新的旅程</button>
+      <button id="btn-continue" class="menu-btn">▸ 繼續航行 / 讀取存檔</button>
+      <button id="btn-gallery" class="menu-btn">▸ 結局圖鑑</button>
+      <button id="btn-lore" class="menu-btn">▸ 世界觀辭典</button>
+    </nav>
+    <p class="dim title-foot">「他們出發時，都只帶了信念和數學。」</p>
+  </div>
+  <span id="ver-tag" class="dim"></span>
+</section>
+
+<section id="scr-create" class="screen">
+  <div class="create-wrap">
+    <h2>乘員登錄</h2>
+    <div class="create-grid">
+      <div class="portrait-box"><div id="cv-portrait"></div></div>
+      <div class="create-right">
+        <div id="bg-list"></div>
+        <div class="row">
+          <span class="lbl">性別</span>
+          <span id="g-toggle">
+            <button data-g="m" class="on">男</button><button data-g="f">女</button>
+          </span>
+        </div>
+        <div class="row">
+          <span class="lbl">姓名</span>
+          <input id="inp-name" maxlength="12" placeholder="">
+        </div>
+        <p id="perk-line" class="perk"></p>
+        <p id="carry-note" class="perk gold" style="display:none">輪迴模式：等級、資源與道具將完整保留。</p>
+        <div class="row btns">
+          <button id="btn-back-title" class="ghost">返回</button>
+          <button id="btn-start" class="primary">啟程</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="scr-game" class="screen">
+  <header id="hud">
+    <div class="hud-left">
+      <span id="hud-ch"></span>
+      <span id="hud-loc" class="dim"></span>
+      <span id="travel-tag" class="tag on" style="display:none">航行中…</span>
+    </div>
+    <div class="hud-mid">
+      <div class="res"><label>燃料</label><div class="bar"><i id="bar-fuel"></i></div></div>
+      <div class="res"><label>船體</label><div class="bar"><i id="bar-hull"></i></div></div>
+      <div class="res"><label>士氣</label><div class="bar"><i id="bar-morale"></i></div></div>
+      <div class="xp"><label id="hud-lv"></label><div class="bar xp"><i id="hud-xpbar"></i></div></div>
+    </div>
+    <div class="hud-right">
+      <span id="hud-time" class="dim"></span>
+      <span id="hud-ng"></span>
+    </div>
+  </header>
+  <main id="stage">
+    <aside id="side-col">
+      <div id="side-portrait"></div>
+      <button id="fab-status">狀態</button>
+      <button id="fab-inv">行囊</button>
+      <button id="fab-log">日誌</button>
+      <button id="fab-map">星圖</button>
+      <button id="fab-save">存檔</button>
+      <button id="fab-lore">辭典</button>
+    </aside>
+    <div id="text-panel">
+      <div id="speaker"></div>
+      <div id="story-text"></div>
+      <div id="choices"></div>
+    </div>
+  </main>
+</section>
+
+<div id="overlay" hidden><div id="panel-card"></div></div>
+<div id="toast"></div>
+
+<script src="js/core.js"></script>
+<script src="js/data/lore.js"></script>
+<script src="js/data/characters.js"></script>
+<script src="js/portrait.js"></script>
+<script src="js/data/items.js"></script>
+<script src="js/data/phenomena.js"></script>
+<script src="js/data/planets.js"></script>
+<script src="js/data/endings.js"></script>
+<script src="js/data/story/s0.js"></script>
+<script src="js/data/story/s1.js"></script>
+<script src="js/data/story/s2.js"></script>
+<script src="js/data/story/s3.js"></script>
+<script src="js/data/story/s4.js"></script>
+<script src="js/data/story/s5.js"></script>
+<script src="js/data/story/s6.js"></script>
+<script src="js/data/story/s7.js"></script>
+<script src="js/data/story/s7b.js"></script>
+<script src="js/data/story/s8.js"></script>
+<script src="js/engine_a.js"></script>
+<script src="js/engine_b.js"></script>
+<script src="js/engine_c.js"></script>
+<script src="js/save.js"></script>
+<script src="js/ui_a.js"></script>
+<script src="js/ui_b.js"></script>
+<script src="js/ui_c.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

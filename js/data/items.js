@@ -1,0 +1,36 @@
+(function () {
+  const I = {};
+  function def(id, o) { I[id] = Object.assign({ id }, o); }
+  def('ration', { name: '合成餐包', type: 'consumable', desc: '深空署配給的藻類蛋白餐。味道像「被稀釋過的家鄉」。', usable: true, useFx: { res: { morale: 12 } }, useText: '你拆開餐包，熱量與鄉愁一起下肚。士氣回升。' });
+  def('tea', { name: '鎮靜茶包', type: 'consumable', desc: '零重力栽培的洋甘菊。醫官莎拉的私人配方，據說能安撫做噩夢的船員。', usable: true, useFx: { res: { morale: 16 } }, useText: '熱氣在無重力中凝成一顆圓圓的水球。你喝下的是一小口平靜。' });
+  def('repair', { name: '奈米補漏膠', type: 'consumable', desc: '數十億枚修復機器人懸浮在膠狀基質裡，遇破洞便蜂擁而上。', usable: true, useFx: { res: { hull: 25 } }, useText: '銀色的膠體湧向破損處，像一群治癒傷口的螞蟻。船體結構強化了。' });
+  def('fuelcell', { name: '氘燃料棒', type: 'consumable', desc: '標準規格聚變燃料，握在手裡比想像中輕——能量本來就沒有重量，只有代價。', usable: true, useFx: { res: { fuel: 30 } }, useText: '燃料棒滑入反應爐插槽，推進系統發出滿足的低鳴。' });
+  def('medkit', { name: '緊急醫療包', type: 'consumable', desc: '凝血噴劑、骨釘、廣譜抗生素。太空人的第二條命。', usable: true, useFx: { res: { morale: 8, hull: 5 } }, useText: '你檢查了每個人的生命徵象。都活著，這比什麼都重要。' });
+  def('watch', { name: '舊懷錶', type: 'tool', desc: '退休那天學生們送的。錶蓋內側刻著：時間會帶我們去該去的地方。', usable: true, useFx: { res: { morale: 10 } }, useText: '你打開錶蓋聽它滴答作響。在宇宙裡，這是最接近心跳的東西。' });
+  def('analyzer', { name: '多用途分析儀', type: 'tool', desc: '光譜、質譜、引力微擾，一機全包。科學家的第三隻眼。' });
+  def('journal', { name: '皮面手記', type: 'tool', desc: '作家的一切靈感與恐懼都在這裡。寫下來的東西，就不會真正消失。' });
+  def('handheld', { name: '幸運掌上機', type: 'tool', desc: '貼滿貼紙的舊電腦，運算力不如船載AI的一根手指，卻總能算出讓人意外的答案。' });
+  def('drone', { name: '維修無人機・蜂鳥', type: 'tool', desc: '四旋翼、機械臂、永遠差一點撞牆。船員們叫牠「蜂鳥」，因為牠吵。' });
+  def('tether', { name: '磁力安全索', type: 'tool', desc: '艙外活動的救命繩。老太空人都說：沒有索，就沒有家。' });
+  def('drill', { name: '電漿鑽', type: 'tool', desc: '採礦站標配。冰層、岩層、偶爾還有別的東西的層。' });
+  def('pendant', { name: '星圖吊墜', type: 'relic', desc: '刻著完整邊界迴聲座標的吊墜。貼近胸口時，你偶爾能「聽」到下一步。', intuition: 0.05 });
+  def('part_a', { name: '相控天線殘片', type: 'part', desc: '從月球背面回收的天線陣列殘片。組裝量子解調器的材料之一。' });
+  def('part_b', { name: '低溫超導環', type: 'part', desc: '火星實驗室的超導環。組裝量子解調器的材料之一。' });
+  def('part_c', { name: '光子計數器', type: 'part', desc: '泰坦觀測站的光子計數器。組裝量子解調器的材料之一。' });
+  def('demod', { name: '量子解調器', type: 'key', desc: '由三件殘骸拼成的儀器。它能「聽懂」邊界迴聲——或者說，把迴聲翻譯成人腦能承受的樣子。' });
+  def('lily', { name: '火星百合', type: 'relic', desc: '第一株在外星球開花的植物。花瓣薄得像一句不敢說出口的話。' });
+  def('jelly', { name: '冰簾水母樣本', type: 'relic', desc: '木衛二冰下海洋的原生生物，發光是為了互相唱歌。地球以外第一個「鄰居」。' });
+  def('ore', { name: '小行星礦芯', type: 'part', desc: '穀神星礦井的岩芯樣本，封存著太陽系誕生時的第一場雪。' });
+  def('probe_chip', { name: '無名探測器晶片', type: 'clue', desc: '小行星帶殘骸裡的晶片。上面的製造序號，在任何人類資料庫裡都不存在——卻又是人類工藝。' });
+  def('directive7', { name: '第七指令備份', type: 'clue', desc: '被刪除又奇蹟般復原的加密檔案。開頭一行：如果妳讀到這裡，說明他們已經不再信任妳了。' });
+  def('pioneer_logs', { name: '先行者號航海日誌', type: 'clue', desc: '四十年前失蹤的深空飛船。日誌的最後一頁寫著：不要相信請柬。' });
+  def('pearl', { name: '奇點珍珠', type: 'relic', desc: '熵歌者的贈禮，一粒被封存的、即將誕生的宇宙。握住它，你能感到裡面有大爆炸前夜的溫度。' });
+  def('entropy_mark', { name: '熵印', type: 'cursed', desc: '烙在你左手背上的環形印記。熵歌者認得你，某些東西也透過你在回望這個宇宙。' });
+  def('ember_seed', { name: '火種', type: 'key', desc: '緘默議會交給你的東西：一枚封著真空衰變臨界點的容器。議會說它叫做「下一個第一次」。' });
+  def('ark_blueprint', { name: '方舟藍圖', type: 'key', desc: '完整的世代飛船設計圖，附帶一條經過驗證的移民航線。半人馬座，四點三光年，單程。' });
+  def('ntp_core', { name: '祝融芯核熱引擎', type: 'relic', desc: '核熱推進核心，讓地月之間的航程從月計變成日計。火焰是核的顏色。' });
+  def('ramjet', { name: '夸父核衝壓引擎', type: 'relic', desc: '以星際氫為食的聚變衝壓機組。人類第一次把燃料站背在了身上。' });
+  def('warp_core', { name: '蜃樓曲率核心', type: 'relic', desc: '非人類工藝的多面體。它不移動船——它移動的是「距離」本身。' });
+  def('vanguard_chip', { name: '先遣會晶片', type: 'clue', desc: '誘餌殘骸裡的晶片，刻著一隻閉著的眼睛。' });
+  UM.DATA.ITEMS = I;
+})();

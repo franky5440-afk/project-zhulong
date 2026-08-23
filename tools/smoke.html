@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8"><title>smoke</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/game_a.css">
+<link rel="stylesheet" href="../css/game_b.css">
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div id="smoke" style="position:fixed;top:2px;left:2px;z-index:999;background:#000;color:#0f0;font-size:12px;padding:4px;">RUNNING</div>
+<section id="scr-title" class="screen">
+  <div class="title-wrap">
+    <h1 class="title-logo">燭龍計畫</h1>
+    <nav class="title-menu">
+      <button id="btn-new" class="menu-btn">new</button>
+      <button id="btn-continue" class="menu-btn">cont</button>
+      <button id="btn-gallery" class="menu-btn">gal</button>
+      <button id="btn-lore" class="menu-btn">lore</button>
+    </nav>
+  </div>
+</section>
+<section id="scr-create" class="screen">
+  <div class="create-wrap">
+    <div class="create-grid">
+      <div class="portrait-box"><div id="cv-portrait"></div></div>
+      <div class="create-right">
+        <div id="bg-list"></div>
+        <div class="row"><span id="g-toggle"><button data-g="m" class="on">男</button><button data-g="f">女</button></span></div>
+        <input id="inp-name" placeholder="">
+        <p id="perk-line"></p><p id="carry-note" style="display:none"></p>
+        <button id="btn-back-title">返回</button><button id="btn-start">啟程</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="scr-game" class="screen">
+  <header id="hud">
+    <span id="hud-ch"></span><span id="hud-loc"></span><span id="travel-tag"></span>
+    <div class="bar"><i id="bar-fuel"></i></div><div class="bar"><i id="bar-hull"></i></div><div class="bar"><i id="bar-morale"></i></div>
+    <label id="hud-lv"></label><div class="bar xp"><i id="hud-xpbar"></i></div>
+    <span id="hud-time"></span><span id="hud-ng"></span>
+  </header>
+  <main id="stage">
+    <aside id="side-col"><div id="side-portrait"></div>
+      <button id="fab-status">狀態</button><button id="fab-inv">行囊</button><button id="fab-log">日誌</button>
+      <button id="fab-map">星圖</button><button id="fab-save">存檔</button><button id="fab-lore">辭典</button>
+    </aside>
+    <div id="text-panel"><div id="speaker"></div><div id="story-text"></div><div id="choices"></div></div>
+  </main>
+</section>
+<div id="overlay" hidden><div id="panel-card"></div></div>
+<div id="toast"></div>
+<script>window.onerror=function(m,s,l){var d=document.getElementById('smoke');d.textContent='PAGEERR '+m+' @'+(s||'')+':'+l;};</script>
+<script src="../js/core.js"></script>
+<script src="../js/data/lore.js"></script>
+<script src="../js/data/characters.js"></script>
+<script src="../js/portrait.js"></script>
+<script src="../js/data/items.js"></script>
+<script src="../js/data/phenomena.js"></script>
+<script src="../js/data/planets.js"></script>
+<script src="../js/data/endings.js"></script>
+<script src="../js/data/story/s0.js"></script>
+<script src="../js/data/story/s1.js"></script>
+<script src="../js/data/story/s2.js"></script>
+<script src="../js/data/story/s3.js"></script>
+<script src="../js/data/story/s4.js"></script>
+<script src="../js/data/story/s5.js"></script>
+<script src="../js/data/story/s6.js"></script>
+<script src="../js/data/story/s7.js"></script>
+<script src="../js/data/story/s7b.js"></script>
+<script src="../js/data/story/s8.js"></script>
+<script src="../js/engine_a.js"></script>
+<script src="../js/engine_b.js"></script>
+<script src="../js/engine_c.js"></script>
+<script src="../js/save.js"></script>
+<script src="../js/ui_a.js"></script>
+<script src="../js/ui_b.js"></script>
+<script src="../js/ui_c.js"></script>
+<script src="../js/main.js"></script>
+<script>
+(function () {
+  var steps = 0, opened = {}, timer = null;
+  function done(msg) { if (timer) clearInterval(timer); document.getElementById('smoke').textContent = msg; }
+  setTimeout(function () {
+    try {
+      if (location.search.indexOf('diag') >= 0) {
+        var info = 'DIAG screens=' + document.querySelectorAll('.screen').length
+          + ' active=' + (document.querySelector('.screen.active') || { id: 'none' }).id
+          + ' hasUM=' + (typeof UM) + ' hasEngine=' + (typeof UM.Engine) + ' hasUI=' + (typeof UM.UI)
+          + ' hasPanels=' + (typeof UM.Panels) + ' hasScreens=' + (typeof UM.Screens)
+          + ' nodes=' + Object.keys(UM.Nodes).length;
+        return done(info);
+      }
+      document.getElementById('btn-new').click();
+      UM.settings = { fastText: true };
+      var cards = document.querySelectorAll('.bg-card');
+      if (!cards.length) return done('FAIL no bg cards n=' + cards.length + ' screen=' + document.querySelector('.screen.active').id + ' listHTML=' + document.getElementById('bg-list').innerHTML.slice(0, 60));
+      cards[3].click();
+      document.querySelector('#g-toggle [data-g="f"]').click();
+      document.getElementById('inp-name').value = '煙霧測試員';
+      document.getElementById('btn-start').click();
+      var panels = ['fab-status', 'fab-inv', 'fab-log', 'fab-map', 'fab-lore'];
+      var pi = 0;
+      timer = setInterval(function () {
+        try {
+          var endScr = document.getElementById('ending-screen');
+          if (endScr) {
+            var t = endScr.querySelector('.end-title');
+            return done('DONE 結束於' + (t ? t.textContent : '?') + ' 步數=' + steps);
+          }
+          if (!document.getElementById('scr-game').classList.contains('active')) return;
+          if (pi < panels.length && steps === 3) {
+            var pid = panels[pi++];
+            document.getElementById(pid).click();
+            opened[pid] = !!document.querySelector('#panel-card .panel-head');
+            var x = document.querySelector('#panel-card .x'); if (x) x.click();
+            return;
+          }
+          var btns = document.querySelectorAll('#choices .choice-btn:not(.disabled)');
+          if (!btns.length) return;
+          var pick = btns[Math.floor(Math.random() * btns.length)];
+          pick.click();
+          steps++;
+          if (steps > 600) done('TIMEOUT @' + UM.state.node + ' loc=' + UM.state.location + ' fuel=' + Math.round(UM.state.res.fuel));
+        } catch (e) { done('LOOPERR ' + e.message); }
+      }, 30);
+    } catch (e) { done('INITERR ' + e.message); }
+  }, 300);
+})();
+</script>
+</body>
+</html>
