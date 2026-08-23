@@ -9,6 +9,6 @@
       UM.Nodes[n.id] = n;
     }
   };
-  UM.VERSION = '1.2.0';
+  UM.VERSION = '1.2.1';
   UM.SAVE_VERSION = 3;
 })();

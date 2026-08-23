@@ -18,7 +18,7 @@
     const bg = UM.DATA.BGS[sel.bgIdx];
     const parts = bg.suggest.split(' / ');
     const nm = document.getElementById('inp-name');
-    nm.placeholder = sel.gender === 'm' ? (parts[1] || parts[0]) : parts[0];
+    nm.placeholder = sel.gender === 'm' ? parts[0] : (parts[1] || parts[0]);
     document.getElementById('perk-line').textContent = `起始攜帶：${UM.DATA.ITEMS[bg.item].name}`;
   }
   function bindCreate() {

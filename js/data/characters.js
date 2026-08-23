@@ -3,7 +3,7 @@
     {
       id: 'scientist', job: '科學家', region: '亞洲', age: 50,
       desc: '你在上海天文台埋首了半生，是世上最懂邊界迴聲的人。同事說你固執，你說那叫嚴謹。這次遠征是你的論文，也是你的贖罪。',
-      suggest: '沈知微 / 沈硯',
+      suggest: '沈硯 / 沈知微',
       skin: '#f0d2b4', hairM: 'salt', hairF: 'bun_salt', glasses: 'rect', trim: '#37d3c0',
       item: 'analyzer', scores: { hope: 2, obsession: 2 }, perk: 'bg_sci'
     },
