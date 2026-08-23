@@ -4,18 +4,21 @@
 
 追記 2026-08-23 晚間（薄弱區 2–5 驗證）：NG+ 已在 1.2.1 修復（創角姓名對調）；本輪完成圖鑑 / 存檔 / 響應式 / 鍵盤全鏈 headless 驗證，僅發現一處窄版視覺重疊已修（1.2.2）。
 
+追記 2026-08-23 23:50（首頁瀏覽器警告 + 結局示意圖預覽）：新增 `.browser-hint`（`index.html:31` / `css/style.css:54`）提醒改用 Safari/Chrome 避免 App 內建瀏覽器存檔失效，bump 1.2.3；匯出 10 張現役 SVG 至 `picture/ending_*.svg` 供視覺確認（已清掉不入庫，預覽截圖留於 `/tmp/opencode/endings_preview.png`），確認示意圖為確定性向量（`js/data/endings.js:3` 無 `Math.random`，同 key 每次同圖），待使用者提供新美術替換。
+
 ## 專案現況
 
-- **已公開上線**：https://franky5440-afk.github.io/project-zhulong/（v1.2.2，當前 `UM.VERSION` 單一來源見 `js/core.js:12`）
+- **已公開上線**：https://franky5440-afk.github.io/project-zhulong/（v1.2.3，當前 `UM.VERSION` 單一來源見 `js/core.js:12`）
 - Repo：`franky5440-afk/project-zhulong`（public，main 分支根目錄 = Pages 來源，push 即自動部署，約 1 分鐘生效）
 - **universe_mud/ 已是獨立 git repo**（本輪 `git init`）。注意：它以前不是 repo、上層 home repo 也沒追蹤它；不要把兩者混淆。
 - Repo 內含 `AGENTS.md`、`HANDOFF.md` 開發文件，公開可見；使用者未表示介意，別主動刪。
 
 ## 下一輪第一件事
 
-問使用者有沒有玩家回報（紅色「系統錯誤：…」橫幅文字、操作步驟、裝置/瀏覽器）。**線上站無法注入 ui_probe 的 harness**（探測靠改寫 index.html），線上問題只能靠回報描述＋本機重現。
+1. 等使用者提供 **新的結局美術示意圖**（預計替換 `js/data/endings.js:16` 10 組 `E.*.art`）。接入時：檔名建議 `picture/ending_{key}.webp|png|svg` 與舊 `PIC` 表同規則，接線參考 `js/portrait.js`；若為點陣圖需改 `e.art` 為 `<img>` 並移除 `svg()` 漸層邏輯，確保圖鑑 `js/ui_c.js:72` 與結局頁 `js/ui_c.js:43` 共用同一資源；完成後跑三件套 + `python3 tools/ui_probe.py` + 1440/500 截圖確認無破版，再 bump minor。
+2. 問使用者有沒有玩家回報（紅色「系統錯誤：…」橫幅文字、操作步驟、裝置/瀏覽器）。**線上站無法注入 ui_probe 的 harness**（探測靠改寫 index.html），線上問題只能靠回報描述＋本機重現。
 
-沒有回報就照下面薄弱區順序主動驗證（1–5 已於 1.2.1/1.2.2 驗過，留作回歸清單）。
+沒有回報就照下面薄弱區順序主動驗證（1–5 已於 1.2.1/1.2.3 驗過，留作回歸清單）。
 
 ## 薄弱區（優先驗證順序）
 
@@ -32,6 +35,8 @@
 - **頭像**：`UM.portrait()` 先查 `PIC` 表（`js/portrait.js` 開頭）→ 有圖回傳 `<img class="portrait-svg">`，無圖 fallback 原 SVG。10 張 webp 已全接入，命名 `{id}_male|female.webp`，新增頭像 = 檔案丟 `picture/` + PIC 表加一行。
 - **`img.portrait-svg`** 用 `aspect-ratio:1/1 + object-fit:cover`（style.css），混合 1:1 與 2:3 素材都能正確圓形裁切。
 - **首頁背景**：`#scr-title` 內 `.title-bg`（`picture/spaceship.webp`，opacity .55 + 上下漸層暗化）。調亮度時記得文字可讀性，截圖確認。
+- **首頁瀏覽器警告**：`index.html:31` `.browser-hint`（`css/style.css:54`，寬 `min(440px,86vw)`、金色半透明底 `rgba(255,200,87,.11)` + `blur(4px)`），置於 `nav.title-menu` 與 `p.title-foot` 之間，提醒改用 Safari/Chrome 避免 App 內建瀏覽器存檔失效；已驗 1440/500 無重疊、按鈕可點。
+- **結局示意圖**：現役 10 張為 `js/data/endings.js:16` 硬寫 SVG（`svg()` + `stars()` 確定性算式，無 `Math.random`，`js/ui_c.js:43,72` 共用），已匯出 `picture/ending_*.svg` 驗證視覺（不入庫，截圖 `/tmp/opencode/endings_preview.png` 留檔），待新美術替換。
 - 頭像/首頁專用探測腳本模板：`/tmp/opencode/portrait_probe.py`（暫存區可能被清，必要時照 `tools/ui_probe.py` 的注入法重寫：真實座標 `elementFromPoint` + dump `#__probe`）。
 
 ## 必跑驗證套組（任何修改後）
