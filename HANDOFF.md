@@ -2,9 +2,11 @@
 
 寫於 2026-08-23 深夜。本輪完成 bug 修復、版本號系統、webp 頭像、首頁背景、**GitHub Pages 公開部署**。使用者表示「接下來的 bug 要等有人試玩到結局才會知道」。
 
+追記 2026-08-23 晚間（薄弱區 2–5 驗證）：NG+ 已在 1.2.1 修復（創角姓名對調）；本輪完成圖鑑 / 存檔 / 響應式 / 鍵盤全鏈 headless 驗證，僅發現一處窄版視覺重疊已修（1.2.2）。
+
 ## 專案現況
 
-- **已公開上線**：https://franky5440-afk.github.io/project-zhulong/（v1.2.0）
+- **已公開上線**：https://franky5440-afk.github.io/project-zhulong/（v1.2.2，當前 `UM.VERSION` 單一來源見 `js/core.js:12`）
 - Repo：`franky5440-afk/project-zhulong`（public，main 分支根目錄 = Pages 來源，push 即自動部署，約 1 分鐘生效）
 - **universe_mud/ 已是獨立 git repo**（本輪 `git init`）。注意：它以前不是 repo、上層 home repo 也沒追蹤它；不要把兩者混淆。
 - Repo 內含 `AGENTS.md`、`HANDOFF.md` 開發文件，公開可見；使用者未表示介意，別主動刪。
@@ -13,16 +15,16 @@
 
 問使用者有沒有玩家回報（紅色「系統錯誤：…」橫幅文字、操作步驟、裝置/瀏覽器）。**線上站無法注入 ui_probe 的 harness**（探測靠改寫 index.html），線上問題只能靠回報描述＋本機重現。
 
-沒有回報就照下面薄弱區順序主動驗證。
+沒有回報就照下面薄弱區順序主動驗證（1–5 已於 1.2.1/1.2.2 驗過，留作回歸清單）。
 
 ## 薄弱區（優先驗證順序）
 
-1. **NG+ 輪迴全鏈 ui_probe**：結局畫面「攜帶狀態開啟新一輪」→ 創角 carry-note → 啟動繼承 → `btn-start` 文字還原。只做過引擎層模擬，UI 鏈沒跑過真實點擊。
-2. **結局圖鑑視覺**：從標題頁開啟的實際渲染沒人看過（SVG 漸層 id 唯一化後）。
-3. **存檔匯出/匯入**：headless 各跑通一次；實瀏覽器下載/挑檔未驗。
-4. **窄版/手機響應式**：完全沒驗。本輪新增 `.title-bg` 與 `img.portrait-svg`，小螢幕下圓形裁切、create-grid 單欄折行要實看（headless 可用 `--window-size=390,844` 截圖）。
-5. **鍵盤操作**：打字機點擊跳過、Enter/空白推進、數字鍵選項——只做過合成事件測試。
-6. **數值平衡**：燃料/XP/事件池權重沒調過。現在有真人玩家，等回報校準，不要閉門亂調。
+1. ✅ **NG+ 輪迴全鏈 ui_probe**：已於上輪跑過（1.2.1 期間）。結局畫面「攜帶狀態開啟新一輪」→ 創角 carry-note → 啟動繼承 → `btn-start` 文字還原。過程中發現創角預設姓名男女對調，已修（`suggest` 順序統一為 男名/女名，科學家資料同步對調，bump 1.2.1）。
+2. ✅ **結局圖鑑視覺**：本輪 headless 兩場景驗過（1.2.2）。未解鎖 10 卡全灰「？」、全解鎖 10 張 SVG 各帶唯一 `skyN` 漸層、無懸空 `url(#…)`、無重複 id。截圖（1440×1000）：`/tmp/opencode/gallery_locked.png`、`/tmp/opencode/gallery_unlocked.png`。
+3. ✅ **存檔匯出/匯入**：本輪 headless 全鏈驗過。真實點擊 `fab-save`→`btn-export` → toast「已匯出」、攔截 blob 為合法 JSON（含 `char`/`node`/`v=SAVE_VERSION`）；`UM.Save.importText(blob)`→`UM.startGameFromState` 成功（p04 回放）、render 無例外；壞資料（非 JSON / 缺 `char`）正確拒絕。實瀏覽器下載/挑檔仍未驗（需人工）。
+4. ✅ **窄版/手機響應式**：本輪 500×844 驗過（chrome 下限 500px，已覆蓋 390px 同斷點層級 780/700）。標題/創角/遊戲三畫面無 `h_overflow`、fab 橫排可命中、choices 3 顆在可視區可點、create-grid 單欄、頭像圓形裁切正常。發現一瑕疵：窄版 `#ver-tag` 與 `.title-foot` 引文水平重疊，已修 `css/style.css:54`（`bottom:1.1rem→.35rem`，重截 `resp_title_fixed.png` 驗證 `overlap=false`）。
+5. ✅ **鍵盤操作**：本輪桌面 1440 headless 全鏈驗過。打字機慢速 13/102 → 真實點擊 `#story-text` 命中並立即補齊且 `choices` 渲染；p01 空白鍵推進 auto、Enter 同路徑推進 auto、choices 節點按 Enter 無作用（noop）、數字鍵按第一個 enabled 選項連續推進 3 步（p02→p03→p03z 等）、`9` 超界 noop。限制：實體鍵盤 `isTrusted` 事件無法在 headless 產生，但 handler 未檢查 `isTrusted`，風險極低，留給實機回歸。
+6. ⏳ **數值平衡**：燃料/XP/事件池權重沒調過。現在有真人玩家，等回報校準，不要閉門亂調。
 
 ## 本輪新增機制速記
 
