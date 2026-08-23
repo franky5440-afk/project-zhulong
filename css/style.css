@@ -50,6 +50,8 @@ button { font-family: inherit; cursor: pointer; }
   transition: all .22s;
 }
 .menu-btn:hover { border-color: var(--accent); box-shadow: 0 0 18px rgba(110,168,255,.3) inset; transform: translateX(6px); }
+.browser-hint { width: min(440px, 86vw); font-size: .74rem; line-height: 1.65; color: #d6c29a; background: rgba(255,200,87,.11); border: 1px solid rgba(255,200,87,.24); border-radius: 10px; padding: .6rem .85rem; letter-spacing: .04em; text-align: left; backdrop-filter: blur(4px); }
+.browser-hint b { color: var(--gold); font-weight: 700; }
 .title-foot { margin-top: auto; padding-bottom: 1.2rem; letter-spacing: .2em; }
 #ver-tag { position: absolute; right: 1.4rem; bottom: .35rem; font-size: .72rem; letter-spacing: .14em; }
 
