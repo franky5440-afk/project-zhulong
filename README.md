@@ -2,6 +2,8 @@
 
 純前端、零依賴的網頁版文字 MUD。人類響應來自宇宙邊緣的「邊界迴聲」，駕駛深空飛船「燼火號」遠征界膜。
 
+線上遊玩：https://franky5440-afk.github.io/project-zhulong/
+
 ## 啟動方式
 
 ```bash
