@@ -43,6 +43,7 @@
       UM.Screens.refresh();
     };
     document.getElementById('btn-continue').onclick = () => UM.Screens.showContinueMenu();
+    document.getElementById('btn-intro').onclick = () => UM.Panels.showIntro();
     document.getElementById('btn-gallery').onclick = () => UM.Screens.showGallery();
     document.getElementById('btn-lore').onclick = () => UM.Panels.showLore();
     document.getElementById('btn-back-title').onclick = () => U.showScreen('scr-title');
