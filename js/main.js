@@ -47,6 +47,13 @@
     document.getElementById('btn-gallery').onclick = () => UM.Screens.showGallery();
     document.getElementById('btn-lore').onclick = () => UM.Panels.showLore();
     document.getElementById('btn-back-title').onclick = () => U.showScreen('scr-title');
+    const btnFast = document.getElementById('btn-fast');
+    btnFast.classList.toggle('on', UM.settings.fastText);
+    btnFast.onclick = () => {
+      UM.settings.fastText = !UM.settings.fastText;
+      btnFast.classList.toggle('on', UM.settings.fastText);
+      localStorage.setItem('um_fast_text', UM.settings.fastText ? '1' : '0');
+    };
     setInterval(() => {
       if (UM.state && !UM.state.ended && document.getElementById('scr-game').classList.contains('active')) {
         UM.state.playSec += 1;

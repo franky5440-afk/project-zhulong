@@ -53,7 +53,7 @@ function run(label, kw) {
 const results = {};
 results.speedrun = run('speedrun', ['【絕不匹配】']);
 results.family = run('family', ['-莎拉', '-ARIA', '-怕到底', '-心事', '通訊日', '花房', '火星百合', '麗姬亞', '銘牌', '返航。']);
-results.friends = run('friends', ['-莎拉', '-去找ARIA', '-怕到底', '-心事', '-百合', '-銘牌', '-麗姬亞', '和事佬', '電影夜', '說說各自', '蜂鳥', '碰杯', '清醒', '返航。']);
+results.friends = run('friends', ['-莎拉', '-ARIA', '-怕到底', '-銘牌', '-花房', '-記錄', '-通訊', '-念', '-電影夜', '-秦朗的晶片', '-降低軌道', '-無人機下去', '-偏航', '-珍珠', '-證據', '和事佬', '說說各自', '不記錄', '清醒', '笑罵', '全速撤離', '誘餌', '修船', '婉拒', '退路', '返航']);
 results.romance = run('romance', ['莎拉', 'ARIA', '志遠', '喜歡', '晚飯', '返航。']);
 results.monster = run('monster', ['視界', '切入', '熵印', '都收下', '跟著旋律', '回應它']);
 results.rebirth = run('rebirth', ['珍珠', '武器', '釋放', '點燃']);
@@ -61,7 +61,7 @@ results.exodus = run('exodus', ['退路', '藍圖', '廣播']);
 results.expose = run('expose', ['秦朗', '晶片', '殘骸', '日誌', '真相', '公開']);
 results.meaningless = run('nihil', ['拒絕', '拒絕作答', '毫無意義', '停止計算']);
 results.regret = run('regret', ['-莎拉', '-ARIA', '-怕到底', '-心事', '休眠', '化學推進', '繞行大空洞', '承認它', '停止計算', '返航。']);
-results.hope = run('hope', ['-莎拉', '-ARIA', '-怕到底', '-心事', '-通訊日', '-百合', '-銘牌', '-麗姬亞', '-花房', '清醒', '穩妥', '保守航線', '遠端彈弓', '按時吃飯', '寫出來', '返航。']);
+results.hope = run('hope', ['-莎拉', '-ARIA', '-怕到底', '-銘牌', '-花房', '-湖畔', '-記錄', '-通訊', '-念', '-電影夜', '-和事佬', '-說說', '-珍珠', '-證據', '-秦朗的晶片', '-降低軌道', '-無人機下去', '-偏航', '同步給', '為什麼要告訴我', '全速撤離', '誘餌', '修船', '婉拒', '退路', '返航']);
 console.log('\n== 驗證 ==');
 function chk(name, got, want) { console.log((got === want ? 'OK  ' : 'FAIL ') + name + ' → ' + got + (got === want ? '' : '（期望 ' + want + '）')); return got === want; }
 let pass = true;
@@ -71,8 +71,10 @@ pass = chk('exodus', results.exodus, 'exodus') && pass;
 pass = chk('conspiracy', results.expose, 'conspiracy') && pass;
 pass = chk('meaningless', results.meaningless, 'meaningless') && pass;
 pass = chk('family', results.family, 'family') && pass;
+pass = chk('friends', results.friends, 'friends') && pass;
 pass = chk('lover', results.romance, 'lover') && pass;
 pass = chk('regret', results.regret, 'regret') && pass;
+pass = chk('hope', results.hope, 'hope') && pass;
 console.log(pass ? '\n主要結局路徑全部通過' : '\n有失敗項目');
 const uniq = new Set(Object.values(results));
 console.log('本次覆蓋結局數：', uniq.size);
