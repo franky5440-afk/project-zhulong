@@ -17,7 +17,7 @@
     { t: '全員撤入風暴屏蔽艙，讓設備聽天由命', goto: '@next', fx: { res: { hull: -6, morale: -4 } } },
     { t: '穿艙外服出去搶修天線遮蔽板', sub: '危險，但值得', req: { res: { morale: 10 } }, goto: 'ev_solar_b' }
   ]});
-  n('ev_solar_b', { chapter:'航程', text: '你和工程師在粒子雨落地前完成了遮蔽板。回到氣閘時，劑量計響得像聖誕樹，但你們笑得像兩個偷渡成功的少年。', auto: { label:'繼續', goto:'@next' }, fx: { xp: 12, scores: { bond: 1 } } });
+  n('ev_solar_b', { chapter:'航程', text: '你和工程師在粒子雨落地前完成了遮蔽板。回到氣閘時，劑量計響得像聖誕樹，但你們笑得像兩個偷渡成功的少年。高志遠拍了拍你腰間的磁力安全索：「這條繩子，今天替你省了一條命。」', auto: { label:'繼續', goto:'@next' }, fx: { items: { tether: 1 }, xp: 12, scores: { bond: 1 } } });
 
   ev('ev_ghost1', 'early', 2, true);
   n('ev_ghost1', { chapter:'航程', text: '深夜頻道裡傳來一段雜訊。你反覆聽了七遍，終於確認那不是幻覺：雜訊深處，有人在用你的名字，輕輕地數數。「……四……五……」', choices: [

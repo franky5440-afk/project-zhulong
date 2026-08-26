@@ -148,6 +148,25 @@
     const rows = L.terms.map(t => `<details><summary>${t.k}</summary><p>${t.v}</p></details>`).join('');
     U.openPanel(panelShell('世界觀辭典', `<div class="lore">${rows}</div>`));
   }
+  function showIntro() {
+    const paras = [
+      '西元 2041 年，南極深空陣列截獲了一段訊號。它來自可觀測宇宙的邊緣，重複播放，一次不差，一共 137 次。它比宇宙微波背景輻射還要「年輕」，卻攜帶著理論上不該存在的資訊密度——彷彿有人在時間之外，寫了一封信，然後耐心地，把它唸了一百三十七遍。',
+      '人類叫它「邊界迴聲」。',
+      '八年後，西元 2049 年，整個星球的工業被動員起來，在月球背面建起船塢，造出一艘以神話命名的飛船——燼火號。燭龍，傳說中銜燭照亮幽暗之地的神獸；而這一次，人類要把光帶到一切光的盡頭。你，是這艘船最後一位確認的乘員。',
+      '你將與四位同伴共赴這場遠征：醫官莎拉・科爾曼、領航員尤里・安東諾夫、工程師高志遠，還有燼火號上那個逐漸學會「害怕」與「喜歡」的船載 AI——ARIA。從月球廣寒站到火星烏托邦平原，從穀神星礦站到木衛二冰下之海，你們會沿途換裝一整個時代的推進科技：老實但緩慢的化學火箭、脾氣暴躁的祝融芯核熱引擎、追著每一顆路過質子跑的夸父核衝壓引擎、以及一枚來歷不明、精確對應著邊界迴聲編碼格式的外星裝置——蜃樓曲率核心。它不移動船，它移動的是「距離」本身。',
+      '但越靠近終點，答案越不像答案。你們會在比鄰星b的晨昏線上，找到四十年前失蹤的「先行者號」殘骸，讀到它斷裂的最後一頁日誌：「不要相信請柬。」你們會在紅巨星的殘骸帶裡，看見上百艘陌生飛船凍結成一支撤退中的艦隊，全部朝著同一個方向——遠離銀河系外圍。你們會抵達由暗物質構築思維的緘默議會，聽見棲息在黑洞深處、以逆熵為食的熵歌者低語，並漸漸拼湊出一個更古老、更龐大的存在：先遣會——一群遠比人類更早收到請柬的文明。名字是人類取的，因為所有線索都指向同一件事：我們不是第一批被邀請的客人。',
+      '界膜就在前方。它不是牆，比較像是——繭的內壁。',
+      '推開它之前，你要先決定：你是誰？你要帶走什麼、留下什麼、成為什麼？是回家吃一頓熱氣騰騰的晚飯，還是把火種散播給十七個恆星系；是揭穿先遣會百萬年的實驗真相，還是在界膜前親手按下宇宙重生的按鈕；是全人類登上方舟遷徙他鄉，還是獨自留在黑洞深處，被熵歌者的歌聲撫平成一種你已不再是「你」的秩序……',
+      '宇宙邊界只有一道門，但推開它的方式，有十種。'
+    ].map(p => `<p>${p}</p>`).join('');
+    const endings = UM.DATA.ENDINGS.map(e => `<span class="tag">${e.title}</span>`).join('');
+    U.openPanel(panelShell('故事序章', `
+      <div class="intro">${paras}</div>
+      <h4>十個結局，等你收集</h4>
+      <div class="tags">${endings}</div>
+      <p class="dim" style="margin-top:.8em">通關後可攜帶等級、資源與道具開啟輪迴，走一條全然不同的路——直到十枚結局徽章，在你的航行日誌裡集齊。</p>
+    `));
+  }
   function showSavePanel() {
     let slotsHtml = '';
     for (let i = 1; i <= 3; i++) {
@@ -185,5 +204,5 @@
       r.readAsText(f);
     };
   }
-  UM.Panels = { showStatus, showInventory, showJournal, showMap, showSavePanel, showLore, panelShell, renderGame, bindFabs };
+  UM.Panels = { showStatus, showInventory, showJournal, showMap, showSavePanel, showLore, showIntro, panelShell, renderGame, bindFabs };
 })();

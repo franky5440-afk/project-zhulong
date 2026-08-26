@@ -50,6 +50,8 @@
 .lore summary { cursor: pointer; letter-spacing: .1em; color: #9fd8ff; }
 .lore p { font-size: .85rem; line-height: 1.9; color: #b9c3e8; padding: .4rem .2rem .2rem; }
 
+.intro p { font-size: .85rem; line-height: 1.9; color: #ccd6f6; margin-bottom: .9rem; }
+
 #ending-screen { position: fixed; inset: 0; z-index: 90; background: rgba(5,2,2,.96); backdrop-filter: blur(8px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; opacity: 0; transition: opacity .8s; overflow-y: auto; padding: 4vh 6vw; text-align: center; }
 #ending-screen.show { opacity: 1; }
 .end-art { width: min(520px, 90vw); border-radius: 16px; overflow: hidden; box-shadow: 0 0 60px rgba(224, 62, 62, .3); animation: endIn 1.2s ease both; }
