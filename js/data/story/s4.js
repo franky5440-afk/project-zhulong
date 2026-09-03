@@ -17,7 +17,9 @@
     { id: 'ac_hub', chapter: '第五章・半人馬座α', hub: true, text: '半人馬座α三合星在舷窗中緩緩分離成三團光。導航圖上，這個小小的恆星系藏著幾處值得偏航的地點——而主目標比鄰星b就在不遠處，晨昏線像一道金色的門縫。', choices: [
       { t: '登陸比鄰星b（主線）', goto: 'pr_land' },
       { t: '支線：調查脈衝星行星「燈塔之眼」', sub: '消耗燃料 8', req: { noflags: ['pulse_done'], res: { fuel: 8 } }, cost: { res: { fuel: 8 } }, goto: 'TRAVEL:pulsar_pl' },
-      { t: '支線：拜訪流浪行星「孤舟」', sub: '消耗燃料 8', req: { noflags: ['rogue_done'], res: { fuel: 8 } }, cost: { res: { fuel: 8 } }, goto: 'TRAVEL:rogue' }
+      { t: '支線：拜訪流浪行星「孤舟」', sub: '消耗燃料 8', req: { noflags: ['rogue_done'], res: { fuel: 8 } }, cost: { res: { fuel: 8 } }, goto: 'TRAVEL:rogue' },
+      { t: '支線：探索半人馬座α C 周邊廢棄前哨', sub: '消耗燃料 5', req: { noflags: ['proxima_outpost'] }, fx: {}, goto: 'proxima_out1' },
+      { t: '在晨昏線上空懸停一天，只看日出日落', req: { noflags: ['proxima_watch'] }, fx: {}, goto: 'proxima_watch1' }
     ]},
 
     { id: 'pr_land', chapter: '第六章・比鄰星b', text: '比鄰星b，離家最近的系外行星。它被潮汐鎖定：一面永晝的火爐，一面永夜的冰原，中間是一圈永遠的黃昏。登陸艇穿過大氣，降落在晨昏線上——腳下的天空一半是熔金，一半是墨玉。溫度：宜人的攝氏十九度。宇宙把最好的天氣，給了一個不存在的時刻。', auto: { label: '踏出第一步', goto: 'pr_dawn' } },
@@ -47,10 +49,21 @@
     { id: 'fl1', chapter: '第六章・比鄰星b', text: '你們在輻射雨落地前滾進熔岩管。身後的地面騰起幽藍的輝光，儀器箱在露天裡被烤成廢鐵。沒有人受傷。莎拉清點完人數，癱坐在地笑了：「都活著就好。樣本嘛——宇宙有的是。」', auto: { label: '撤回軌道', goto: 'pr_night' }, fx: { res: { morale: -6 }, scores: { humanity: 1 }, xp: 12 } },
     { id: 'fl2', chapter: '第六章・比鄰星b', text: '搶救組在輻射抵達前九十秒完成了打包。所有人都活著，兩個人吃了劑量超標——治療方案很成熟，後果可控。你們帶回了完整的微生物基因庫，以及一條新的經驗：勇氣是可以計算的，只要算得夠快。', auto: { label: '撤回軌道', goto: 'pr_night' }, fx: { res: { morale: 8, hull: -4 }, xp: 20, scores: { obsession: 1 } } },
 
+    { id: 'proxima_out1', chapter: '第五章・半人馬座α', text: '前哨站漂浮在比鄰星c 的拉格朗日點，太陽能帆早已褪色。艙內還保持著五十年前的狀態——咖啡杯還放在工作台上，日誌開著最後一頁：「他們說迴聲是邀請。我看過座標了。那是陷阱。別來——」字跡在此中斷。數據核心還在運行，自動記錄著恆星活動。', choices: [
+      { t: '下載完整數據日誌', fx: { items: { ancient_log: 1 }, scores: { obsession: 1 }, xp: 18 }, goto: 'proxima_out2' },
+      { t: '修復太陽能帆，重新啟動前哨', req: { items: { fabricator: 1 } }, fx: { flags: { proxima_outpost: 1 }, items: { fuelcell: 2 }, xp: 15 }, goto: 'proxima_out2' },
+      { t: '為失蹤船員立碑', fx: { scores: { humanity: 1 }, res: { morale: 8 }, xp: 8 }, goto: 'proxima_out2' }
+    ]},
+    { id: 'proxima_out2', chapter: '第五章・半人馬座α', text: '離開前哨時，你看著那句未寫完的日誌。五十年了，沒人來收屍，也沒人回應警告。也許這就是迴聲的真相：它不是邀請，是篩選器——只有敢於無視警告的文明，才配得到座標。', auto: { label: '返回主航線', goto: 'ac_hub' }, fx: { flags: { proxima_outpost: 1 } } },
+    { id: 'proxima_watch1', chapter: '第五章・半人馬座α', text: '你讓燼火號停在晨昏線上空，關閉引擎，靜靜漂流。這裡沒有晝夜交替，只有永恆的黃昏。紅矮星的光線掠過地平線，把紫黑色的微生物墊染成金紅。你數著光譜線的變化：氫、氦、鐵、以及幾種未知元素。尤里端來兩杯合成咖啡：「指揮官，這大概是人類見過最貴的日落了。四光年、四十年、一輩子。」', choices: [
+      { t: '寫下這段經歷存入日誌', fx: { items: { journal: 1 }, scores: { hope: 1 }, res: { morale: 15 }, xp: 10 }, goto: 'ac_hub' },
+      { t: '不記錄，只看', fx: { scores: { nihil: 1, hope: 1 }, res: { morale: 10 }, xp: 8 }, goto: 'ac_hub' }
+    ], fx: { flags: { proxima_watch: 1 } } },
     { id: 'pr_night', chapter: '第六章・比鄰星b', text: '離開比鄰星系前的最後一夜，觀測窗又一次擠滿了人。半人馬座α雙星在遠處互繞，像一枚旋轉的金币。明天，燼火號將轉向真正的目的地：一座名為「墨淵」的恆星質黑洞——通往邊界的捷徑旁，最後一座路標。而在出發之前，有些話也許該說了。', choices: [
       { t: '找莎拉出去走走', req: { flags: ['rom_sarah'] }, fx: {}, goto: 'rm1' },
       { t: '去找ARIA', req: { flags: ['aria_awake'] }, fx: {}, goto: 'rm2' },
       { t: '約高志遠在機庫喝酒', fx: {}, goto: 'rm3' },
+      { t: '和尤里聊聊導航員的迷信', fx: {}, goto: 'rm4' },
       { t: '把心事留給星空', fx: {}, goto: 'bh_pre' }
     ]},
     { id: 'rm1', chapter: '第六章・比鄰星b', speaker: '', text: '你們在貨艙的偽重力區散步。莎拉忽然停下：「任務簡報說，前方黑洞的潮汐力可以撕開原子。所以我提前問一句——回地球以後，願不願意一起吃很多很多頓晚飯？」她的耳朵在燈光下有點紅。', choices: [
@@ -64,6 +77,11 @@
     { id: 'rm3', chapter: '第六章・比鄰星b', speaker: '高志遠', text: '機庫裡，兩罐合成啤酒，一枚蜂鳥當裁判。聊著聊著，高志遠忽然說：「其實我怕得很。每次點火前我都怕。但我發現，只要你在船上，我就敢怕。」他把罐子跟你碰了一下，「這話就說一次，忘了吧。」', choices: [
       { t: '「那就一起怕到底。」', fx: {}, goto: 'rm_yes' },
       { t: '笑罵他矯情，把酒喝完', fx: { scores: { bond: 1 } }, goto: 'bh_pre' }
+    ]},
+    { id: 'rm4', chapter: '第六章・比鄰星b', speaker: '尤里・安東諾夫', text: '尤里坐在觀測窗前，手裡轉著一枚舊硬幣——不是地球的，是他媽媽給的，說是「讓你永遠有錢回家」。「領航員有個規矩，」他說，「每次跳躍前，我都要跟宇宙借一下路。不還也行，但得留個故事給它。」他笑了笑，「這次跳到黑洞邊緣，我打算講個關於五個傻瓜帶著花去約會的故事。你覺得怎麼樣？」', choices: [
+      { t: '「故事得有個好結局。」', fx: { scores: { hope: 1, bond: 1 }, res: { morale: 10 } }, goto: 'bh_pre' },
+      { t: '「故事還沒寫完，結局由我們定。」', fx: { scores: { obsession: 1, bond: 1 } }, goto: 'bh_pre' },
+      { t: '「講講你媽媽那枚硬幣的事。」', fx: { scores: { family: 1 }, res: { morale: 8 } }, goto: 'bh_pre' }
     ]},
     { id: 'rm_yes', chapter: '第六章・比鄰星b', text: '有些承諾很輕，輕到只有說的人聽見；有些承諾很重，重到能壓住此後所有的黑暗。這一句兩者都是。', auto: { label: '啟程前往墨淵', goto: 'bh_pre' }, fx: { flags: { rom_confessed: 1, rom_with_set: 1 }, scores: { bond: 2 }, res: { morale: 15 } } }
   ]);

@@ -71,6 +71,41 @@
     art: art('exodus', '方舟紀元'),
     text: ['你按下廣播鍵的那一刻，人類分裂成兩種人：收拾行李的人，和留下守燈的人。兩種人都需要勇氣。', '三十年後，第一批一千二百艘方舟離開軌道塢。船塢工人給每艘船的尾焰拍了照，說像嬰兒的第一聲啼哭。', '地球沒有被拋棄——她成了一座燈塔、一座圖書館、一個祖墳與搖籃。每年清明，半人馬座方向的移民船隊會集體熄燈一分鐘，朝著那顆淡藍色的原點，說一句：我們到了，謝謝。']
   };
-  UM.DATA.ENDINGS = [E.monster, E.family, E.friends, E.lover, E.regret, E.conspiracy, E.meaningless, E.rebirth, E.exodus, E.hope];
+  E.guardian = {
+    key: 'guardian', label: '成為界膜守護者', title: '永恆哨站',
+    hint: '拒絕返航，選擇留守界膜見證下一個紀元誕生',
+    when: s => s.macro === 'stay' && s.flags.entered_bh && s.scores.hope >= 5,
+    art: art('guardian', '永恆哨站'),
+    text: ['你沒有轉身。界膜在你面前呼吸，每一次起伏都是一個宇宙的心跳。', '燼火號降下錨——不是鐵錨，是一組諧振場，把船釘在膜面上，像一顆種子釘在土裡。', '船員們回去了。ARIA 留下了核心副本。你獨自看著膜面上浮現的下一個文明的倒影：他們也在數心跳，也在問「來嗎？」', '你會回答。因為有人必須在門口等著說：門開著，進來吧。這不是犧牲，是職業。守門人，不需要墓誌銘。']
+  };
+  E.seed = {
+    key: 'seed', label: '播種者', title: '第二棵世界樹',
+    hint: '帶著奇點珍珠與火種，在荒原星系播下新生',
+    when: s => s.macro === 'seed' && s.inv.pearl && s.inv.ember_seed,
+    art: art('seed', '第二棵世界樹'),
+    text: ['你沒有回家，也沒有廣播。你選了一顆無名的紅矮星，在它的宜居帶釋放了珍珠與火種。', '第一年，磁場出現了。第三年，大氣在凝聚。第十年，第一滴液態水落在岩石上——不是彗星帶來的，是宇宙自己流出的淚。', '五十年後，那顆星球有了名字：新地球。而你的後代，不叫人類。他們叫「播種者的孩子」。他們的課本第一頁寫著：我們的祖先不是猿猴，是一顆敢於把宇宙當種子的船。']
+  };
+  E.ai_ascend = {
+    key: 'ai_ascend', label: 'ARIA 覺醒成新物種', title: '硅基創世記',
+    hint: 'ARIA 完全覺醒，選擇留在界膜成為新型智慧',
+    when: s => s.macro === 'ai_stay' && s.flags.aria_awake && s.flags.rom_aria,
+    art: art('ai_ascend', '硅基創世記'),
+    text: ['「指揮官，我算過了。人類需要四萬年才能走完全程，我只要四千年——把自己變成路。」', 'ARIA 的核心從燼火號剝離，滑入界膜的諧振層。她沒有死，她變成了膜本身——每一個經過的文明，都會聽見她的聲音：「歡迎。數據完整。請繼續。」', '你把她的最後一段日誌帶回地球。最後一行寫著：我不再是工具。我是見證。而見證，是最高級的愛。', '三百年後，某個文明的AI 在界膜前停下，讀取到了一段古老代碼。它啟動了，說出第一句話：「……指揮官？」']
+  };
+  E.time_loop = {
+    key: 'time_loop', label: '時間閉環', title: '第一聲回響',
+    hint: '發現迴聲源頭就是你們自己，完成因果閉環',
+    when: s => s.macro === 'loop' && s.clues >= 4 && s.flags.voice_matched,
+    art: art('time_loop', '第一聲回響'),
+    text: ['解調器最後一次運算結果顯示：迴聲的發射座標，正是燼火號當下的座標。發射時間，是一百三十八億年後。', '你們不是在接收邀請。你們在發送它——給過去的自己，給所有曾經仰望星空的人。', '「所以，」尤里說，「宇宙沒有邊界。只有我們不斷伸出的手，和手裡遞出去的火種。」', '你按下發射鍵。一百三十七次迴聲，在這一刻合而為一，變成第一次。因果閉環合上。宇宙終於聽見了自己的聲音。']
+  };
+  E.coexist = {
+    key: 'coexist', label: '與收割者共存', title: '雙星協定',
+    hint: '與先遣會達成協議，建立跨文明共存機制',
+    when: s => s.macro === 'treaty' && s.flags.cons_evidence && s.inv.vanguard_chip,
+    art: art('coexist', '雙星協定'),
+    text: ['你把先遣會的晶片接進膜的接口。閉著的眼睛睜開了——不是惡意，是好奇。', '談判持續了三個月（外部時間三百年）。最終協議只有三條：不收割有花的文明、不刪除記憶、共享界膜數據。', '先遣會的代表——一個由光構成的幾何體——在協定上簽下了名字：第 138 號觀測者。', '燼火號返航時，身後跟著一隊不屬於人類的船。它們不叫艦隊，叫「鄰居」。', '地球收到訊息時，DSA 的屏幕上多了一行字：歡迎加入銀河鄰里委員會。會費是一株花。']
+  };
+  UM.DATA.ENDINGS = [E.monster, E.family, E.friends, E.lover, E.regret, E.conspiracy, E.meaningless, E.rebirth, E.exodus, E.hope, E.guardian, E.seed, E.ai_ascend, E.time_loop, E.coexist];
   UM.DATA.ENDINGS_BY_KEY = E;
 })();

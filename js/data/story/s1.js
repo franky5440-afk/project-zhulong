@@ -16,6 +16,8 @@
       { t: '申請通訊日，和家人好好聊聊', req: { noflags: ['fam2'] }, fx: {}, goto: 'ec2' },
       { t: '在城中休整一日', req: { noflags: ['rest_mars'] }, fx: {}, goto: 'mc_rest' },
       { t: '補給與加油', req: { noflags: ['sup_mars'] }, fx: {}, goto: 'sp_mars' },
+      { t: '探訪火星地下城市「新長安」', req: { noflags: ['mars_underground'] }, fx: {}, goto: 'mars_ug1' },
+      { t: '參加殖民地創始日慶典', req: { noflags: ['mars_festival'] }, fx: {}, goto: 'mars_fest1' },
       { t: '啟程：小行星帶・穀神星', req: { res: { fuel: 20 } }, cost: { res: { fuel: 20 } }, goto: 'TRAVEL:belt' }
     ]},
 
@@ -29,6 +31,16 @@
 
     { id: 'ec2', chapter: '第二章・烏托邦平原', text: '火星的通訊延遲長達十幾分鐘，聊天變成了朗讀。你念你的航行，家人念家裡的瑣事：誰病了、誰結婚了、院子裡的樹開花了。掛斷後很久，你還盯著螢幕上自己的倒影。原來「想念」是有重量的，而且真空裡一點都不會衰減。', auto: { label: '回到環廊', goto: 'h_mars' }, fx: { scores: { family: 1 }, res: { morale: 14 }, flags: { fam2: 1 } } },
     { id: 'mc_rest', chapter: '第二章・烏托邦平原', text: '你在殖民地的低重力泳池泡了一下午，和陌生人聊了毫無意義的天。奇蹟般地，那正是靈魂需要的東西。', auto: { label: '回到環廊', goto: 'h_mars' }, fx: { res: { morale: 18 }, flags: { rest_mars: 1 } } },
-    { id: 'sp_mars', chapter: '第二章・烏托邦平原', speaker: '補給站', text: '殖民地的聚變燃料廠為燼火號加滿了氘。「火星造價，」站長拍著管線驕傲地說，「比地球運來便宜六成。告訴外頭的人：我們不是前哨，我們是新省。」', auto: { label: '完成補給', goto: 'h_mars' }, fx: { res: { fuel: 100, hull: 100 }, items: { ration: 1, part_a: 1 }, flags: { sup_mars: 1 } } }
+    { id: 'sp_mars', chapter: '第二章・烏托邦平原', speaker: '補給站', text: '殖民地的聚變燃料廠為燼火號加滿了氘。「火星造價，」站長拍著管線驕傲地說，「比地球運來便宜六成。告訴外頭的人：我們不是前哨，我們是新省。」', auto: { label: '完成補給', goto: 'h_mars' }, fx: { res: { fuel: 100, hull: 100 }, items: { ration: 1, part_a: 1, fabricator: 1, bio_scanner: 1, stim_pack: 2, sleep_aid: 2 }, flags: { sup_mars: 1 } } },
+    { id: 'mars_ug1', chapter: '第二章・烏托邦平原', text: '電梯下降兩公里，岩壁上燈帶亮起——新長安，火星第一個地下城市。這裡沒有穹頂，岩石就是保護層。三萬人在人工光源下種菜、養魚、寫代碼、生孩子。市長是個出生於地球、死於火星的老婦人，她遞給你一罐火星釀造的啤酒：「喝吧。這是用回收水、火星大麥、還有我們的固執釀出來的。」', choices: [
+      { t: '和市長長談火星獨立議題', fx: { scores: { obsession: 1, bond: 1 }, xp: 12 }, goto: 'mars_ug2' },
+      { t: '參觀地熱發電核心', req: { items: { analyzer: 1 } }, fx: { items: { mars_seed: 1 }, xp: 10 }, goto: 'mars_ug2' },
+      { t: '只喝啤酒，聽他們吵架', fx: { res: { morale: 15 }, scores: { humanity: 1 }, xp: 6 }, goto: 'mars_ug2' }
+    ]},
+    { id: 'mars_ug2', chapter: '第二章・烏托邦平原', text: '離開時，老市長塞給你一個小盒子：「火星種子庫的備份。帶去邊界。如果宇宙有溫室，我們想讓它長滿地球的綠。」', auto: { label: '返回穹頂', goto: 'h_mars' }, fx: { flags: { mars_underground: 1 }, items: { mars_seed: 1 }, xp: 8 } },
+    { id: 'mars_fest1', chapter: '第二章・烏托邦平原', text: '創始日煙火在穹頂內綻開——不是真的煙火，是無人機編隊拼出的光影：第一批登陸艇、第一口井、第一個在火星出生的嬰兒。殖民者們圍成圈跳舞，動作笨拙卻認真。高志遠拉著你也跳了一支：「指揮官，這才是我們出來的原因。不是迴聲，不是邊界——是這個。」', choices: [
+      { t: '發表即興演講', fx: { scores: { hope: 2, bond: 1 }, res: { morale: 20 }, xp: 15 }, goto: 'h_mars' },
+      { t: '安靜地看著，把畫面刻進記憶', fx: { scores: { nihil: 1, hope: 1 }, res: { morale: 10 }, xp: 8 }, goto: 'h_mars' }
+    ], fx: { flags: { mars_festival: 1 } } }
   ]);
 })();

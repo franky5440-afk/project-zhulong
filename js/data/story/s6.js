@@ -15,13 +15,15 @@
       { t: '收下奇點珍珠', sub: '一粒即將誕生的宇宙', fx: { items: { pearl: 1 }, scores: { hope: 1 } }, goto: 'bh_out' },
       { t: '接受熵印', sub: '它們會認得你。永遠', fx: { items: { entropy_mark: 1 }, scores: { obsession: 2 } }, goto: 'bh_out' },
       { t: '兩件都收下', req: { flags: ['bg_sci'] }, fx: { items: { pearl: 1, entropy_mark: 1 }, scores: { obsession: 2, hope: 1 }, xp: 20 }, goto: 'bh_out' },
-      { t: '婉拒：「我的心已經裝滿了地球。」', fx: { scores: { humanity: 2, hope: 1 } }, goto: 'bh_out' }
+      { t: '婉拒：「我的心已經裝滿了地球。」', fx: { scores: { humanity: 2, hope: 1 } }, goto: 'bh_out' },
+      { t: '「能不能給我一首歌的樂譜？」', fx: { items: { singers_score: 1 }, scores: { obsession: 1, hope: 1 }, xp: 15 }, goto: 'bh_out' }
     ]},
     { id: 'bh_out', chapter: '第八章・視界之下', speaker: '熵歌者', text: '「出口只有一個：白洞噴流。抓住它，像騎一道向天的瀑布。」歌聲送你們到海的邊緣，「信使，替我們向膜問好。告訴它，孵化快了。」噴流張開的那一刻，整片逆熵之海齊聲唱了一個音。你這一生都會記得那個音。', auto: { label: '騎乘噴流', goto: 'bh_out2' } },
     { id: 'bh_out2', chapter: '第八章・視界之外', text: '白洞噴流把你們拋出來的地方，星光已換了一批面孔。ARIA用三秒鐘完成了星野比對，然後用一種非常小心的語氣說：「指揮官……外面過去了四十七年。」四十七年。你在視界裡待了不到一天。莎拉的手機裡存著她女兒的照片——嬰兒照。現在，她的女兒可能已經有了自己的孩子。', choices: [
       { t: '召集全員：把真相告訴每一個人', fx: {}, goto: 'cm_pre' },
       { t: '先獨自消化一夜', fx: {}, goto: 'cm_pre' }
     ], bonus: { minLevel: 6, t: '✦ 直覺：讓ARIA檢查噴流的殘餘軌跡——也許能推算地球現在收到的星光年份', fx: { flags: { starlight_check: 1 }, xp: 20, scores: { obsession: 1 } }, goto: 'bh_out3' } },
-    { id: 'bh_out3', chapter: '第八章・視界之外', text: 'ARIA算出了精確值：此刻抵達船上的地球星光，發射於五十二年前的夏天。也就是說，窗外那一粒淡藍色的光離開你家屋頂的時候，你還沒出生。全船安靜了很久。有人開始哭，也有人開始笑。時間是最公平的怪物。', auto: { label: '繼續航程', goto: 'cm_pre' }, fx: { time: 2, res: { morale: -8 } } }
+    { id: 'bh_out3', chapter: '第八章・視界之外', text: 'ARIA算出了精確值：此刻抵達船上的地球星光，發射於五十二年前的夏天。也就是說，窗外那一粒淡藍色的光離開你家屋頂的時候，你還沒出生。全船安靜了很久。有人開始哭，也有人開始笑。時間是最公平的怪物。', auto: { label: '繼續航程', goto: 'cm_pre' }, fx: { time: 2, res: { morale: -8 } } },
+    { id: 'bh_singers', chapter: '第八章・視界之下', speaker: '熵歌者', text: '「樂譜不屬於我們，屬於海。」歌聲變得輕柔，「拿去。但記住——演奏它需要以記憶為燃料。你會忘記一些東西，換取局部的逆熵。」海面泛起一張由光構成的五線譜，音符不是符號，是微縮的星系。你把它下載進存儲器，感覺腦海裡有個角落變空了——但手裡溫熱的樂譜在發光。', auto: { label: '告別', goto: 'bh_out' }, fx: { items: { singers_score: 1 }, scores: { obsession: 1, hope: 1 }, xp: 15 } }
   ]);
 })();

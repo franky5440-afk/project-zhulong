@@ -10,6 +10,7 @@
       { t: '找醫官莎拉・科爾曼聊聊', fx: {}, goto: 'p03a' },
       { t: '拜訪領航員尤里・安東諾夫', fx: {}, goto: 'p03b' },
       { t: '去機庫找工程師高志遠', fx: {}, goto: 'p03c' },
+      { t: '去見 DSA 心理評估官林醫生', fx: {}, goto: 'p03d' },
       { t: '直接前往發射塔', fx: {}, goto: 'p04' }
     ]},
     { id: 'p03a', chapter: '序章', speaker: '莎拉・科爾曼', text: '莎拉正在給一箱試管貼標籤，頭也不抬：「坐。緊張的人我見多了，手心出汗、話變多、或者反常地安靜——你是哪種？」她終於抬眼笑了，「放心，我的職責是把你們全部活著帶回來。包括你自己，別搞錯優先順序。」', choices: [
@@ -24,11 +25,17 @@
       { t: '「算我一個。」', fx: { flags: { met_gao: 1, gao_hint: 1 } }, goto: 'p03z' },
       { t: '「你確定這玩意兒不會把我們炸上天？」', fx: { flags: { met_gao: 1, gao_hint: 1 }, scores: { obsession: 1 } }, goto: 'p03z' }
     ]},
+    { id: 'p03d', chapter: '序章', speaker: '林醫生・DSA 心理評估官', text: '林醫生的辦公室沒有窗戶，只有全息投影的松林。「最後一次評估，」她把筆記本合上，「不測智商，不測壓力。只問一個問題：當你看著那個洞——邊界、迴聲、未知——你覺得它在看你嗎？」', choices: [
+      { t: '「它在看。而且它在等。」', fx: { flags: { met_lin: 1 }, scores: { obsession: 2 } }, goto: 'p03z' },
+      { t: '「它不看人。它只是存在。」', fx: { flags: { met_lin: 1 }, scores: { nihil: 1 } }, goto: 'p03z' },
+      { t: '「我不知道。但我希望它在看——這樣我就不孤單了。」', fx: { flags: { met_lin: 1 }, scores: { hope: 1, bond: 1 } }, goto: 'p03z' }
+    ]},
     { id: 'p03z', chapter: '序章', text: '海風吹過發射場，遠處的燼火號在暮色裡亮起航行燈。無論明天如何，今夜的你們還只是五個普通人。', auto: { label: '返回準備區', goto: 'p03' } },
     { id: 'p04', chapter: '序章', speaker: '', text: '發射前夜，你獨自站在塔架下。頭頂是銀河，腳下是四十億年演化出的、唯一會仰望的物種。有人問過你為什麼要去的，對吧？你當時怎麼答的？', choices: [
       { t: '「因為門開了，而人是會走路的問號。」', fx: { scores: { hope: 2 }, xp: 5 }, goto: 'p05' },
       { t: '「因為再不出發，我們就只能在照片裡認識宇宙。」', fx: { scores: { hope: 1 }, xp: 5 }, goto: 'p05' },
-      { t: '「說實話，我也不知道。也許就是想看看盡頭長什麼樣。」', fx: { scores: { nihil: 1, obsession: 1 }, xp: 5 }, goto: 'p05' }
+      { t: '「說實話，我也不知道。也許就是想看看盡頭長什麼樣。」', fx: { scores: { nihil: 1, obsession: 1 }, xp: 5 }, goto: 'p05' },
+      { t: '「林醫生問我：當你盯著深淵，深淵在不在盯著你？我答：我在盯著它，這就夠了。」', req: { flags: ['met_lin'] }, fx: { scores: { obsession: 1, hope: 1 }, xp: 5 }, goto: 'p05' }
     ]},
     { id: 'p05', chapter: '序章', speaker: '', text: 'T-10、9、8……點火。轟鳴不是聲音，是一隻手按住你的胸口往天上推。雲層被撕開，藍色星球在你腳下彎成一道弧。三分鐘後，引擎熄火，世界突然安靜——你失重了。人類歷史也跟著你一起，輕輕飄了起來。', auto: { label: '前往月球轉運站', goto: 'TRAVEL:moon' } },
 
@@ -39,6 +46,8 @@
       { t: '和莎拉在醫療艙值班一夜', fx: {}, goto: 'st1' },
       { t: '申請一通與地球的私人通訊', fx: {}, goto: 'ec1' },
       { t: '領取補給品', req: { noflags: ['sup_moon'] }, fx: {}, goto: 'sp1' },
+      { t: '在月面漫步一圈', req: { noflags: ['moon_walk'] }, fx: {}, goto: 'moon_walk1' },
+      { t: '參觀月球背面射電陣列', req: { noflags: ['moon_array'] }, fx: {}, goto: 'moon_array1' },
       { t: '啟程：核熱快航前往火星', sub: '需要祝融芯・消耗燃料', req: { flags: ['tech_ntp'], res: { fuel: 25 } }, cost: { res: { fuel: 25 } }, goto: 'TRAVEL:mars' },
       { t: '啟程：化學推進＋低溫休眠（慢）', sub: '省燃料，但你會睡過八個月', req: { noflags: [] }, fx: { time: 1, flags: { slow_route: 1 }, res: { fuel: -10 } }, goto: 'TRAVEL:mars' }
     ]},
@@ -49,14 +58,22 @@
     ]},
     { id: 'st2', chapter: '第一章・天梯與廣寒站', speaker: '莎拉', text: '莎拉沉默了一會兒，從抽屜摸出一包鎮靜茶塞給你：「醫囑：想家的時候喝。副作用是想家想得更厲害。」她笑著補了一句，「但那也算病嗎？」', auto: { label: '回到環廊', goto: 'h_moon' }, fx: { items: { tea: 1 } } },
     { id: 'ec1', chapter: '第一章・天梯與廣寒站', speaker: '', text: '私人通訊艙只有一平米。延遲一秒多，但螢幕亮起的瞬間，光年的謊言就被拆穿了——家就在那裡，近得你能看清對方的黑眼圈。你們聊了什麼不重要。重要的是掛斷之後，你發現自己在笑。', auto: { label: '回到環廊', goto: 'h_moon' }, fx: { scores: { family: 1 }, res: { morale: 12 }, flags: { fam1: 1 } } },
-    { id: 'sp1', chapter: '第一章・天梯與廣寒站', speaker: '補給官', text: '補給官推來一隻儲物箱：「深空署的規矩，出太陽系前，把胃先餵成太空人的胃。」', auto: { label: '收下補給', goto: 'h_moon' }, fx: { items: { ration: 2, repair: 1, fuelcell: 1 }, flags: { sup_moon: 1 } } },
+    { id: 'sp1', chapter: '第一章・天梯與廣寒站', speaker: '補給官', text: '補給官推來一隻儲物箱：「深空署的規矩，出太陽系前，把胃先餵成太空人的胃。」', auto: { label: '收下補給', goto: 'h_moon' }, fx: { items: { ration: 2, repair: 1, fuelcell: 1, nutrient_paste: 2, oxygen_can: 1 }, flags: { sup_moon: 1 } } },
+    { id: 'moon_walk1', chapter: '第一章・天梯與廣寒站', text: '你穿上輕量化月面服，踏出氣閘。腳下的塵土沒有風吹走，會永遠保留你的腳印——直到下一次隕石雨，或是下一個來的人。地球在頭頂掛著，藍得讓人想哭。你拍了張照，發給家裡：「我在月球上，想你們。」', choices: [
+      { t: '撿一塊月岩帶走', fx: { items: { moon_rock: 1 }, scores: { hope: 1 }, xp: 8 }, goto: 'h_moon' },
+      { t: '只留下腳印，什麼都不帶', fx: { scores: { nihil: 1 }, res: { morale: 5 }, xp: 5 }, goto: 'h_moon' }
+    ]},
+    { id: 'moon_array1', chapter: '第一章・天梯與廣寒站', speaker: '陣列技師', text: '月球背面的射電陣列是太陽系最安靜的聽眾——地球的電波噪音被月球本體擋住了。技師指著波形圖：「這就是八年前的第一聲迴聲。頻率、相位、編碼……完美得不像自然現象。」', choices: [
+      { t: '申請一份原始數據副本', fx: { items: { first_signal: 1 }, scores: { obsession: 1 }, xp: 10 }, goto: 'h_moon' },
+      { t: '聽完就好，不帶走數據', fx: { scores: { hope: 1 }, res: { morale: 8 }, xp: 6 }, goto: 'h_moon' }
+    ]},,
 
     { id: 'gq1', chapter: '第一章・天梯與廣寒站', speaker: '高志遠', text: '引擎艙裡瀰漫著冷卻液的甜腥味。高志遠拍了拍祝融芯的外殼：「毛病在二次循環泵，溫度一過閾值就罷工。我有三個方案，都不完美——你來挑，出了事咱倆一起背。」', choices: [
       { t: '用分析儀做流體建模，找出共振點', req: { items: { analyzer: 1 } }, fx: { flags: { gao_good: 1 } }, goto: 'gq2' },
       { t: '土辦法：加裝備用泵，笨但保險', fx: { flags: { gao_safe: 1 } }, goto: 'gq2' },
       { t: '「信你的直覺，你比電腦懂它。」', fx: { flags: { gao_trust: 1 }, scores: { bond: 1 } }, goto: 'gq2' }
     ]},
-    { id: 'gq2', chapter: '第一章・天梯與廣寒站', speaker: '高志遠', text: '四十八小時後，引擎重新點火測試。尾焰在真空裡無聲地綻開，橙紫色的，像一朵倒著開的花。「成了！」高志遠摘下頭盔擦汗，「祝融芯正式服役。火星，七天航程，人類第一次用核火焰取暖。」', auto: { label: '安裝完成', goto: 'h_moon' }, fx: { flags: { tech_ntp: 1 }, items: { ntp_core: 1 }, xp: 20, res: { morale: 10 } } },
+    { id: 'gq2', chapter: '第一章・天梯與廣寒站', speaker: '高志遠', text: '四十八小時後，引擎重新點火測試。尾焰在真空裡無聲地綻開，橙紫色的，像一朵倒著開的花。「成了！」高志遠摘下頭盔擦汗，「祝融芯正式服役。火星，七天航程，人類第一次用核火焰取暖。」', auto: { label: '安裝完成', goto: 'h_moon' }, fx: { flags: { tech_ntp: 1 }, items: { ntp_core: 1, grav_mapper: 1 }, xp: 20, res: { morale: 10 } } },
 
     { id: 'sys_low_fuel', chapter: '系統警告', speaker: 'ARIA・船載AI', text: '「指揮官，燃料儲量低於安全閾值。建議就近補給，否則我將不得不開始學習如何划船。」', choices: [
       { t: '使用氘燃料棒', req: { items: { fuelcell: 1 } }, cost: { items: { fuelcell: 1 } }, fx: { res: { fuel: 30 } }, goto: '@next' },

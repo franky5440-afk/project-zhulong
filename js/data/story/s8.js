@@ -7,7 +7,12 @@
       { t: '向全人類廣播方舟座標與藍圖', sub: '需要：方舟藍圖', req: { items: { ark_blueprint: 1 } }, fx: { scores: { humanity: 2 }, flags: { macro: 'broadcast' } }, goto: 'v4' },
       { t: '公開先遣會真相，撕開十億年的收割', sub: '需要：完整證據或三條線索', req: { clues: 3 }, fx: { scores: { obsession: 1, hope: 1 }, flags: { macro: 'expose' } }, goto: 'v4' },
       { t: '釋放奇點珍珠／火種，點燃下一個宇宙', sub: '需要：珍珠或火種', req: { anyItems: [['pearl'], ['ember_seed']] }, fx: { scores: { obsession: 2 }, flags: { macro: 'rebirth' } }, goto: 'v4' },
-      { t: '拒絕作答。轉身，把問題留給下一個文明', fx: { scores: { nihil: 2 }, flags: { macro: 'refuse' } }, goto: 'v4' }
+      { t: '拒絕作答。轉身，把問題留給下一個文明', fx: { scores: { nihil: 2 }, flags: { macro: 'refuse' } }, goto: 'v4' },
+      { t: '留下。成為界膜的永恆守望者', sub: '需要：進入過黑洞、保有希望', req: { flags: ['entered_bh'] }, fx: { scores: { hope: 1 }, flags: { macro: 'stay' } }, goto: 'v4' },
+      { t: '播種。在荒原星系種下新世界', sub: '需要：奇點珍珠與火種', req: { items: { pearl: 1, ember_seed: 1 } }, fx: { scores: { hope: 1, humanity: 1 }, flags: { macro: 'seed' } }, goto: 'v4' },
+      { t: '讓 ARIA 留下，成為新型智慧', sub: '需要：ARIA 覺醒且情感連結', req: { flags: ['aria_awake', 'rom_aria'] }, fx: { flags: { macro: 'ai_stay' } }, goto: 'v4' },
+      { t: '發送迴聲，完成時間閉環', sub: '需要：四條以上線索、聲紋比對', req: { clues: 4, flags: ['voice_matched'] }, fx: { scores: { obsession: 2 }, flags: { macro: 'loop' } }, goto: 'v4' },
+      { t: '與先遣會簽訂共存協議', sub: '需要：完整證據與觀測者通行證', req: { flags: ['cons_evidence'], items: { vanguard_chip: 1 } }, fx: { scores: { hope: 1, humanity: 1 }, flags: { macro: 'treaty' } }, goto: 'v4' }
     ]},
     { id: 'v4', chapter: '終章・尾聲', text: '決定已下。燼火號調轉船頭（或者沒有）。膜在你身後緩緩合攏，像一句說完的話。無論哪個宇宙，故事都在這裡換行。', auto: { label: '見證結局', goto: 'ENDINGS' } }
   ]);

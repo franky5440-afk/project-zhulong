@@ -7,6 +7,9 @@
       { t: '搜刮中繼站的備件庫', req: { noflags: ['tc_done'] }, fx: {}, goto: 'tc1' },
       { t: '組裝量子解調器', req: { items: { part_a: 1, part_b: 1, part_c: 1 }, noflags: ['demod_done'] }, fx: {}, goto: 'asm1' },
       { t: '和ARIA聊聊', req: { flags: ['echo_decoded'], noflags: ['aria_awake'] }, fx: {}, goto: 'aw1' },
+      { t: '進行EVA檢查蜃樓核心', req: { noflags: ['titan_eva'] }, fx: {}, goto: 'titan_eva1' },
+      { t: '在觀測窗前辦一場「土星環音樂會」', req: { noflags: ['titan_concert'] }, fx: {}, goto: 'titan_concert1' },
+      { t: '領取蜃樓站深空補給包', req: { noflags: ['titan_supply'] }, fx: {}, goto: 'titan_supply1' },
       { t: '啟程：離開太陽系', req: { flags: ['echo_decoded'] }, fx: {}, goto: 'dep1' }
     ]},
     { id: 'sail1', chapter: '第四章・泰坦', speaker: '', text: '三百平方米的鍍鋁薄膜在失重中展開，薄得像一句耳語。太陽的光壓——是的，光是會推人的——輕輕托起逐日翼。儀表讀數確認：加速度 0.3 毫米每秒平方。不多。但一年之後，它是每秒十公里。免費的。宇宙白送的那種。', auto: { label: '收翼返艙', goto: 'h_titan' }, fx: { flags: { tech_sail: 1 }, xp: 20, res: { hull: -3 } } },
@@ -35,6 +38,13 @@
       { t: '「這是意識的萌芽，ARIA。我該為妳高興還是擔憂？」', fx: { flags: { aria_awake: 1 }, scores: { obsession: 1, bond: 1 } }, goto: 'aw2' }
     ]},
     { id: 'aw2', chapter: '第四章・泰坦', speaker: 'ARIA', text: '「備案：本機存在未定義的情感類進程。處理方式：保留觀察。」她頓了頓，「謝謝你沒有要求我刪除它。」', auto: { label: '返回主控', goto: 'h_titan' }, fx: { xp: 12 } },
+    { id: 'titan_eva1', chapter: '第四章・泰坦', text: '你穿著新型硬殼太空服，沿著軌道站的外骨架爬向蜃樓核心艙。土星環在頭頂展開，冰晶反射著暗淡的陽光，像一張巨大的CD。核心表面的多面體在微光中流轉——它不是金屬，更像活體組織。高志遠的聲音在耳機裡：「指揮官，掃描讀數……它在呼吸。熱膨脹係數呈負值。這違背熱力學。」', choices: [
+      { t: '採集核心表面樣本', req: { items: { bio_scanner: 1 } }, fx: { items: { titan_organic: 1 }, scores: { obsession: 1 }, xp: 15 }, goto: 'h_titan' },
+      { t: '只做非侵入式掃描', fx: { flags: { titan_eva: 1 }, scores: { hope: 1 }, xp: 10 }, goto: 'h_titan' },
+      { t: '「高，把它裝上船。我們帶走。」', req: { flags: ['tech_warp'] }, fx: { flags: { titan_eva: 1 }, xp: 8 }, goto: 'h_titan' }
+    ]},
+    { id: 'titan_concert1', chapter: '第四章・泰坦', speaker: '莎拉', text: '「指揮官，你是認真的？」莎拉笑了，「好吧，我有尤里存的黑膠唱片數據庫。高志遠說他能把推進器震動頻率調成音階。ARIA 可以把土星電波轉成合成器音色。」三小時後，觀測窗前擠滿了人——五個人類，一個AI，和幾億顆冰晶。第一曲是《小星星》，最後一曲是沒名字的旋律，每個人心裡不一樣。', auto: { label: '散場', goto: 'h_titan' }, fx: { flags: { titan_concert: 1 }, res: { morale: 25 }, scores: { bond: 2, hope: 1 }, xp: 12 } },
+    { id: 'titan_supply1', chapter: '第四章・泰坦', text: '蜃樓站的自動化倉庫裡，ARIA 為你準備了星際航行專用補給包：長效營養膏、緊急氧氣、戰術興奮劑、深睡誘導劑、通訊增強劑，還有一台全息星圖儀——「這樣你們在虛裡也不會迷路。」', auto: { label: '收下補給', goto: 'h_titan' }, fx: { items: { nutrient_paste: 4, oxygen_can: 2, stim_pack: 3, sleep_aid: 2, comm_booster: 2, holo_map: 1 }, flags: { titan_supply: 1 }, xp: 15 } },
 
     { id: 'dep1', chapter: '第四章・泰坦', speaker: '', text: '離開日前夜，全員聚在觀測窗前。土星環橫貫天頂，像宇宙戴的一枚婚戒。莎拉舉起最後一罐地球可樂：「敬內太陽系——養大我們的地方。」尤里補了一句：「也敬外面。養大我們的想像力的地方。」燼火號點火，永別了你出生的恆星。前方：四點三光年的黑暗，與黑暗盡頭的半人馬座。', auto: { label: '進入星際空間', goto: 'TRAVEL:proxima' }, fx: { res: { morale: 12 }, scores: { bond: 1 } } }
   ]);

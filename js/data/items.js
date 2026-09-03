@@ -32,5 +32,62 @@
   def('ramjet', { name: '夸父核衝壓引擎', type: 'relic', desc: '以星際氫為食的聚變衝壓機組。人類第一次把燃料站背在了身上。' });
   def('warp_core', { name: '蜃樓曲率核心', type: 'relic', desc: '非人類工藝的多面體。它不移動船——它移動的是「距離」本身。' });
   def('vanguard_chip', { name: '先遣會晶片', type: 'clue', desc: '誘餌殘骸裡的晶片，刻著一隻閉著的眼睛。' });
+  // 新增消耗品
+  def('nutrient_paste', { name: '營養膏劑', type: 'consumable', desc: '高熱量應急營養膏，味道像「被壓縮過的未來」。', usable: true, useFx: { res: { morale: 8, hull: 3 } }, useText: '你擠出一管膏劑，甜膩的熱量滑進喉嚨。船體感應到能量回升。' });
+  def('oxygen_can', { name: '便攜氧氣罐', type: 'consumable', desc: '濃縮液態氧，關鍵時刻的三分鐘呼吸。', usable: true, useFx: { res: { morale: 10 } }, useText: '冰冷的氣體灌入肺葉。活著，真好。' });
+  def('stim_pack', { name: '戰術興奮劑', type: 'consumable', desc: '軍用級提神藥劑，副作用是會看見不存在的顏色。', usable: true, useFx: { res: { morale: -5 }, scores: { obsession: 1 } }, useText: '心跳加速到每分鐘一百八十。世界變慢了，你變快了。' });
+  def('sleep_aid', { name: '深睡誘導劑', type: 'consumable', desc: '強制進入深度睡眠的藥物，醒來時不記得夢見了什麼。', usable: true, useFx: { res: { morale: 15 } }, useText: '意識像關燈一樣切斷。醒來時，星圖挪動了幾度。' });
+  def('comm_booster', { name: '通訊增強劑', type: 'consumable', desc: '暫時提升遠程通訊清晰度的藥丸，副作用是會聽見星星的聲音。', usable: true, useFx: { res: { morale: 12 }, flags: { comm_boost: 1 } }, useText: '你吞下藥丸，地球的聲音突然清晰得像在耳邊低語。' });
+  
+  // 新增工具
+  def('grav_mapper', { name: '引力地圖繪製儀', type: 'tool', desc: '能繪製看不見的引力井分佈。盲人摸象時，這是盲杖。' });
+  def('bio_scanner', { name: '生物特徵掃描儀', type: 'tool', desc: '掃描半徑五公里內的所有生命特徵。連微生物的呼吸都躲不掉。' });
+  def('quantum_compass', { name: '量子羅盤', type: 'tool', desc: '不指北，指「可能性」。指針永遠顫動，因為未來不止一種。' });
+  def('mem_extractor', { name: '記憶提取器', type: 'tool', desc: '從腦波中提取記憶片段，存成可播放的全息檔案。慎用——有些記憶提取後就不屬於你了。' });
+  def('fabricator', { name: '微型製造單元', type: 'tool', desc: '給它原料和藍圖，它給你零件。船上的「萬能螺絲刀」。' });
+  def('shield_gen', { name: '便攜護盾發生器', type: 'tool', desc: '投射半徑兩米的電磁護盾，能擋住微隕石、輻射、以及絕望。' });
+  def('holo_map', { name: '全息星圖儀', type: 'tool', desc: '投射三維星圖，能標記每一個你去過、和沒去過的地方。' });
+  def('translator', { name: '通用語言解碼器', type: 'tool', desc: '嘗試解碼任何規律訊號。至今只成功解出過「你好」和「小心」。' });
+  def('time_anchor', { name: '時間錨點儀', type: 'tool', desc: '在局部空間固定時間流速。黑洞邊緣的必備品，也是哲學家的玩具。' });
+  
+  // 新增遺物
+  def('first_signal', { name: '第一聲迴聲記錄', type: 'relic', desc: '人類歷史上第一次接收到的邊界迴聲原始波形。聽起來像心跳。', intuition: 0.03 });
+  def('moon_rock', { name: '月岩・廣寒一號', type: 'relic', desc: '廣寒站挖掘的第一塊月岩，封存著四十億年前的太陽風。' });
+  def('mars_seed', { name: '火星種子庫樣本', type: 'relic', desc: '烏托邦平原種子庫的備份。每一粒種子都經過基因編輯，適應紅色星球。' });
+  def('europa_ice', { name: '木衛二核心冰芯', type: 'relic', desc: '從二十公里深處鑽取的冰芯，氣泡裡封著外星海洋的第一口氣。' });
+  def('titan_organic', { name: '泰坦有機沉積物', type: 'relic', desc: '甲烷湖底的有機泥，分子鏈排列出類似 DNA 的雙螺旋——但不對稱。' });
+  def('proxima_glass', { name: '燈塔玻璃', type: 'relic', desc: '脈衝星行星表面的發光玻璃，隨著脈衝星節奏明滅。永不熄滅的夜燈。' });
+  def('rogue_core', { name: '流浪行星核心樣本', type: 'relic', desc: '無恆星行星核心的岩石，放射性同位素比例記錄著孤獨的熱史。' });
+  def('trap_tea', { name: 'TRAPPIST 真茶', type: 'relic', desc: '新火種前哨種出的第一批茶葉。喝一口，就能尋到回家的路。' });
+  def('ark_plate', { name: '方舟銘牌', type: 'relic', desc: '刻著一千一百個名字的金屬牌。每個名字後面，都是一個選擇留下的故事。' });
+  def('council_fiber', { name: '議會光纖碎片', type: 'relic', desc: '緘默議會節點脫落的一段光纖。拿在手裡能感受到十億年的共識。', intuition: 0.08 });
+  
+  // 新增零件
+  def('part_d', { name: '反物質磁瓶', type: 'part', desc: '用於穩定蜃樓核心反物質注入的磁約束瓶。組裝曲率驅動的關鍵。' });
+  def('part_e', { name: '時空應變計', type: 'part', desc: '測量局部時空曲率變化的精密儀器。導航曲率航線的眼睛。' });
+  def('part_f', { name: '相干場發射器', type: 'part', desc: '建立宏觀量子相干場的核心組件。讓宏觀物體表現出量子特性。' });
+  def('warp_drive', { name: '曲率驅動核心', type: 'key', desc: '由反物質磁瓶、時空應變計、相干場發射器組裝而成。能讓船「跳過」中間的空間。' });
+  
+  // 新增關鍵道具
+  def('membrane_key', { name: '界膜鑰匙', type: 'key', desc: '緘默議會給出的實體鑰匙。插入膜的接口，能開啟/關閉特定通道。' });
+  def('vanguard_key', { name: '觀測者通行證', type: 'key', desc: '先遣會承認的身份標識。持有者可自由進出收割區域。' });
+  def('seed_vault', { name: '星際種子庫核心', type: 'key', desc: '包含地球所有已知物種基因組的晶體存儲。重啟生態圈的種子。' });
+  def('aria_core', { name: 'ARIA 核心副本', type: 'key', desc: '船載 AI 的完整人格備份。她說：這不是備份，是分身。' });
+  def('echo_source', { name: '迴聲源碼', type: 'key', desc: '生成邊界迴聲的核心代碼。修改它，就是修改宇宙的招手方式。' });
+  
+  // 新增線索
+  def('ancient_log', { name: '遠古文明日誌', type: 'clue', desc: '在紅巨星殘骸場發現的日誌殘頁。記載著十億年前的收割見證。' });
+  def('membrane_map', { name: '界膜拓撲圖', type: 'clue', desc: '議會提供的界膜結構圖。上面標著無數「門」，和每扇門後的宇宙參數。' });
+  def('harvest_record', { name: '收割記錄總匯', type: 'clue', desc: '先遣會十億年收割史的壓縮檔案。每一行都是一個文明的墓誌銘。' });
+  def('council_protocol', { name: '議會共識協議', type: 'clue', desc: '暗物質文明的決策協議副本。不說話，只「同意」——這是一種更高級的民主。' });
+  def('singers_score', { name: '熵歌者樂譜', type: 'clue', desc: '逆熵之海的旋律記譜。演奏它，能在局部逆轉熵增。代價是記憶。' });
+  
+  // 新增詛咒/特殊物品
+  def('void_touch', { name: '虛無觸感', type: 'cursed', desc: '在大空洞停留太久留下的印記。你能感覺到虛無在看你。', intuition: -0.05 });
+  def('radiation_scar', { name: '輻射傷痕', type: 'cursed', desc: '紅矮星耀斑留下的基因損傷標記。會遺傳給下一代——連同對星星的敬畏。' });
+  def('membrane_mark', { name: '膜痕', type: 'cursed', desc: '觸摸界膜留下的印記。你的夢境開始滲入其他文明的記憶。' });
+  def('loop_anchor', { name: '閉環錨點', type: 'cursed', desc: '完成時間閉環後殘留在因果鏈上的節點。你永遠無法真正「離開」那一刻。' });
+  def('silent_vow', { name: '緘默誓約', type: 'cursed', desc: '與議會達成共識時立下的誓約。違背它，宇宙會忘記你的名字。' });
+  
   UM.DATA.ITEMS = I;
 })();
